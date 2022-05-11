@@ -1,6 +1,7 @@
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
 
 object Taxi extends App {
   Logger.getLogger("org").setLevel(Level.ERROR)
@@ -69,7 +70,14 @@ object Taxi extends App {
 val paymentAnalysis = ss.sql("SELECT payment_type,AVG(fare_amount),AVG(tip_amount),AVG(mta_tax) FROM tbl_taxi GROUP BY payment_type")
 //  paymentAnalysis.show()
 
+//  ss.sql("SELECT pickup_datetime,SUBSTRING(pickup_datetime,12,13) AS hour FROM tbl_taxi").show()
+//    ss.sql("select date_format(timestamp pickup_datetime, 'hh') AS hour FROM tbl_taxi").show()
+  val filteredData = ss.sql("SELECT pickup_datetime,HOUR(pickup_datetime) AS hour,total_amount FROM tbl_taxi")
 
+  filteredData.createOrReplaceTempView("filteredData_tbl")
+
+//  ss.sql("SELECT * FROM filteredData_tbl").show()
+  ss.sql("SELECT hour, MAX(total_amount) FROM filteredData_tbl GROUP BY hour").select(max("MAX(total_amount)")).show()
 
 
 }
