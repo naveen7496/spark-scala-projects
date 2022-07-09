@@ -51,7 +51,7 @@ object Taxi extends App {
 
   // 6. average trip distance
   val avgDistance = ss.sql("SELECT AVG(trip_distance) FROM tbl_taxi").first().getDouble(0)
-//  println(avgDistance)
+  println(avgDistance)
 
   // 7. how many different payment types
   val paymentTypes = ss.sql("SELECT DISTINCT payment_type FROM tbl_taxi")
@@ -77,7 +77,7 @@ val paymentAnalysis = ss.sql("SELECT payment_type,AVG(fare_amount),AVG(tip_amoun
   filteredData.createOrReplaceTempView("filteredData_tbl")
 
 //  ss.sql("SELECT * FROM filteredData_tbl").show()
-  ss.sql("SELECT hour, MAX(total_amount) FROM filteredData_tbl GROUP BY hour").select(max("MAX(total_amount)")).show()
+//  ss.sql("SELECT hour, MAX(total_amount) FROM filteredData_tbl GROUP BY hour").select(max("MAX(total_amount)")).show()
 
 
 }
