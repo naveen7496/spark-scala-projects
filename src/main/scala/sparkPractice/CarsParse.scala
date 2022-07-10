@@ -79,7 +79,7 @@ object CarsParse extends App {
       .option("password","1234")
       .option("dbtable","car_sales")
       .load()
-    carSales.show()
+    carSales.show(50)
 
 
 
