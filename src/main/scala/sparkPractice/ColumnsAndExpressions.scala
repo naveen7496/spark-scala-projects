@@ -81,7 +81,7 @@ object ColumnsAndExpressions extends App {
   // MULTIPLE FILTER
 
   val americanPowerfulcarsDf = carsDF.filter(col("Origin") === "USA" and col("Horsepower") > 200)
-  americanPowerfulcarsDf.show()
+//  americanPowerfulcarsDf.show()
 
 
 
@@ -99,8 +99,9 @@ object ColumnsAndExpressions extends App {
 
   // DISTINCT
 
-  val allCountries = carsDF.select("origin").distinct()
-  allCountries.show()
+//  val allCountries =
+    println(carsDF.select("origin").distinct().count())
+//  allCountries.show()
 
 
 
